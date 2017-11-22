@@ -1,0 +1,26 @@
+
+.bandeau {
+    margin-bottom : 50px;
+    min-height: 400px;
+    background-image: url("Contenu/bandeau.jpg");
+}
+
+a {
+  color: #0056b3;
+}
+
+a:hover{
+  text-decoration: none;
+}
+
+a:visited{
+  text-decoration: none;
+
+}
+a:active{
+  text-decoration: none;
+}
+
+a + .titre_blog:visited{
+  color: #3961E8;
+}

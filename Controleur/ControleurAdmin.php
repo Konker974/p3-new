@@ -20,7 +20,7 @@ class ControleurAdmin {
     public function login() {
       session_start();
       if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
-        header('Location: http://localhost/p3/index.php?action=admin');
+        header('Location: http://www.pdp974.fr/P3/index.php?action=admin');
         exit;
       }
       if (isset($_POST['identifiant']) AND isset($_POST['password']))
@@ -29,13 +29,13 @@ class ControleurAdmin {
           $credentials=$this->admin->getCredentials($_POST['identifiant'], $pass_hache);
           if (!$credentials)
               {
-                  echo 'Mauvais identifiant ou mot de passe !';
+                  throw new Exception("Mauvais identifiant ou mot de passe");
               }
               else
               {
                   $_SESSION['identifiant'] = $credentials['pseudo'];
                   $_SESSION['loggedIn'] = true;
-                  header('Location: http://localhost/p3/index.php?action=admin');
+                  header('Location: http://www.pdp974.fr/P3/index.php?action=admin');
                   exit;
 
 
@@ -51,7 +51,7 @@ class ControleurAdmin {
     session_start();
     $_SESSION = array();
     session_destroy();
-    header('Location: http://localhost/p3/index.php?action=login');
+    header('Location: http://www.pdp974.fr/P3/index.php?action=login');
     exit;
   }
 

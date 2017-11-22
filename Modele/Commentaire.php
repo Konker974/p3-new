@@ -1,17 +1,13 @@
 <?php
 
 require_once 'Modele/Modele.php';
-/**
- * Fournit les services d'accès aux genres musicaux
- *
- * @author Baptiste Pesquet
- */
+
 class Commentaire extends Modele {
 
 // Renvoie la liste des commentaires associés à un billet
     public function getCommentaires($idBillet) {
         $sql = 'select COM_ID as id, COM_DATE as date,'
-                . ' COM_AUTEUR as auteur, COM_CONTENU as contenu, BIL_ID as bil_id from T_COMMENTAIRE'
+                . ' COM_AUTEUR as auteur, COM_CONTENU as contenu, BIL_ID as bil_id from t_commentaire'
                 . ' where BIL_ID=?';
         $commentaires = $this->executerRequete($sql, array($idBillet));
         return $commentaires;
@@ -19,7 +15,7 @@ class Commentaire extends Modele {
 
     // Ajoute un commentaire dans la base
     public function ajouterCommentaire($auteur, $contenu, $idBillet) {
-        $sql = 'insert into T_COMMENTAIRE(COM_DATE, COM_AUTEUR, COM_CONTENU, BIL_ID)'
+        $sql = 'insert into t_commentaire(COM_DATE, COM_AUTEUR, COM_CONTENU, BIL_ID)'
             . ' values(?, ?, ?, ?)';
             $date = date('Y-m-d H:i:s');  // Récupère la date courante
         $this->executerRequete($sql, array($date, $auteur, $contenu, $idBillet));
@@ -27,7 +23,7 @@ class Commentaire extends Modele {
 
     public function getCommentairesSignales() {
         $sql = 'select COM_ID as id, COM_DATE as date,'
-                . ' COM_AUTEUR as auteur, COM_CONTENU as contenu, BIL_ID as bil_id from T_COMMENTAIRE'
+                . ' COM_AUTEUR as auteur, COM_CONTENU as contenu, BIL_ID as bil_id from t_commentaire'
                 . ' where signalement=?';
         $commentaires = $this->executerRequete($sql, array(1));
         return $commentaires;
@@ -45,7 +41,7 @@ class Commentaire extends Modele {
 
     public function getCommentairesSignalesAvecId($idBillet) {
         $sql = 'select COM_ID as id, COM_DATE as date,'
-                . ' COM_AUTEUR as auteur, COM_CONTENU as contenu from T_COMMENTAIRE'
+                . ' COM_AUTEUR as auteur, COM_CONTENU as contenu from t_commentaire'
                 . ' where BIL_ID=? AND SIGNALEMENT =1';
         $commentaires = $this->executerRequete($sql, array($idBillet));
         return $commentaires;
@@ -62,6 +58,11 @@ class Commentaire extends Modele {
       $idBillet = $idBillet->fetch();
       return $idBillet;
 
+    }
+
+    public function supprimerCommentairesAvecId($idBillet) {
+        $sql = 'DELETE FROM `t_commentaire` WHERE `t_commentaire`.`BIL_ID` = ?';
+        $this->executerRequete($sql, array($idBillet));
     }
 
 

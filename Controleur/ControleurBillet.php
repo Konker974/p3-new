@@ -24,6 +24,13 @@ class ControleurBillet {
 
     // Ajoute un commentaire à un billet
     public function commenter($auteur, $contenu, $idBillet) {
+        $auteur=trim($auteur);
+        $contenu=trim($contenu);
+        if (empty($auteur)||empty($contenu)) {
+          throw new Exception("Votre commentaire ou votre pseudo n'est pas correct. Veuillez recommencer en renseignant les champs obligatoires svp.");
+        }
+        $auteur=htmlspecialchars($auteur);
+        $contenu=htmlspecialchars($contenu);
         // Sauvegarde du commentaire
         $this->commentaire->ajouterCommentaire($auteur, $contenu, $idBillet);
         // Actualisation de l'affichage du billet
@@ -55,6 +62,23 @@ class ControleurBillet {
         $vue->generer(array());
 
 
+    }
+
+    public function billetDelete($idBillet) {
+        $this->billet->deleteBillet($idBillet);
+        //$this->commentaire->supprimerCommentairesAvecId($idBillet);
+
+
+    }
+
+    public function isAdmin(){
+      session_start();
+      if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn']) {
+        return true;
+      }
+      else {
+        return false;
+      }
     }
 
 

@@ -9,6 +9,13 @@
   </div>
 
   <textarea name="contenu" id="mytextarea" form="tmce"></textarea>
-  <button type="button submit" class="btn btn-primary">valider</button>
+  <br>
+  <div class="row justify-content-center">
+    <div class="col-md-3 ">
+      <button type="button submit" class="btn btn-primary btn-block">Valider</button>
+      <a href="index.php?action=admin" class="btn btn-danger btn-block">Annuler</a>
+    </div>
+  </div>
+
 
 </form>
